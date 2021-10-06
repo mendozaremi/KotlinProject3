@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TaskItemAdapter(private val tasks: List<String>) :
+class TaskItemAdapter(private val tasks: List<String>,
+                      private val onItemClickListener: OnItemClickedListener) :
     RecyclerView.Adapter<TaskItemAdapter.ViewHolder>() {
 
-
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val summaryTextView = itemView.findViewById<TextView>(R.id.task)
+    interface OnItemClickedListener {
+        fun onItemClicked(position: Int)
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val taskItemView = inflater.inflate(R.layout.item_task, parent, false)
@@ -28,4 +29,13 @@ class TaskItemAdapter(private val tasks: List<String>) :
         return tasks.size
     }
 
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val summaryTextView = itemView.findViewById<TextView>(R.id.task)
+
+        init {
+            itemView.setOnClickListener {
+                onItemClickListener.onItemClicked(adapterPosition)
+            }
+        }
+    }
 }

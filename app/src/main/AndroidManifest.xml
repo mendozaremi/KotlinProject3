@@ -11,7 +11,7 @@
         android:theme="@style/Theme.AndroidBasicsProject3">
 
         <activity
-            android:name=".SecondActivity">
+            android:name=".EditTaskActivity">
         </activity>
         <activity
             android:name=".MainActivity"
